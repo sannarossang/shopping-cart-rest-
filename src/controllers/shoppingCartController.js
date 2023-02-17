@@ -110,9 +110,9 @@ exports.updateShoppingCartById = async (req, res) => {
 
 exports.deleteShoppingCartById = async (req, res) => {
   const shoppingCartId = req.params.shoppingCartId;
-  if (!shoppingCartId || shoppingCartId.length != 24) {
-    return res.status(400).json({ message: "ShoppingCart id is invalid" });
-  }
+  // if (!shoppingCartId || shoppingCartId.length != 24) {
+  //   return res.status(400).json({ message: "ShoppingCart id is invalid" });
+  // }
   try {
     const shoppingCartToDelete = await ShoppingCart.findById(shoppingCartId);
     if (!shoppingCartToDelete) {
@@ -132,11 +132,11 @@ exports.deleteShoppingCartItemById = async (req, res) => {
   const shoppingCartId = req.params.shoppingCartId;
   const productId = req.params.productId;
 
-  if (productId.length != 24 || shoppingCartId.length != 24) {
-    return res
-      .status(400)
-      .json({ message: "ShoppingCart or product id is invalid" });
-  }
+  // if (productId.length != 24 || shoppingCartId.length != 24) {
+  //   return res
+  //     .status(400)
+  //     .json({ message: "ShoppingCart or product id is invalid" });
+  // }
 
   try {
     let shoppingCartToUpdate = await ShoppingCart.findById(shoppingCartId);
