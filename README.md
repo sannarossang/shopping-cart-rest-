@@ -2,25 +2,30 @@
 
 ## ROUTES
 
-###Products
+### Products
 
-##GET
+## GET
 - getAllProducts: http://localhost:4000/api/v1/products/
 - getProductById: http://localhost:4000/api/v1/products/:productId
 
-###ShoppingCart
+### ShoppingCart
 
-##GET
+## GET
 - getAllShoppingCart: http://localhost:4000/api/v1/shoppingCarts/
 - getAllShoppingCartsById: http://localhost:4000/api/v1/shoppingCarts/:shoppingCartId
 
-##POST:
+## POST:
 - createtNewShoppingCart: http://localhost:4000/api/v1/shoppingCarts
 
-##PUT: 
+## PUT: 
 - updateShoppingCartById: http://localhost:4000/api/v1/shoppingCarts/:shoppingCartId
 
-##DELETE:
+Body: {
+	"productId": "63eb5d5550272ab5cef5af1e",
+	"quantity": "2"
+}
+
+## DELETE:
 - deleteShoppingCartById: http://localhost:4000/api/v1/shoppingCarts
 - deleteShoppingCartByCartItemId: http://localhost:4000/api/v1/shoppingCarts/:shoppingCartId/:shoppingCartItemId
 
