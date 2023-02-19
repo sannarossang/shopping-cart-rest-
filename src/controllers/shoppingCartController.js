@@ -110,18 +110,18 @@ exports.updateShoppingCartById = async (req, res) => {
 
 exports.deleteShoppingCartById = async (req, res) => {
   const shoppingCartId = req.params.shoppingCartId;
-  // if (!shoppingCartId || shoppingCartId.length != 24) {
-  //   return res.status(400).json({ message: "ShoppingCart id is invalid" });
-  // }
+  if (!shoppingCartId || shoppingCartId.length != 24) {
+    return res.status(400).json({ message: "ShoppingCart id is invalid" });
+  }
   try {
     const shoppingCartToDelete = await ShoppingCart.findById(shoppingCartId);
     if (!shoppingCartToDelete) {
-      return res.status(400).json({
-        message: "You must provide a correct shoppingCartId to remove.",
+      return res.status(404).json({
+        message: "Cart not found",
       });
     }
     await shoppingCartToDelete.delete();
-    return res.status(204);
+    return res.sendStatus(204);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal error" });
@@ -130,20 +130,39 @@ exports.deleteShoppingCartById = async (req, res) => {
 
 exports.deleteShoppingCartItemById = async (req, res) => {
   const shoppingCartId = req.params.shoppingCartId;
-  const productId = req.params.productId;
+  const productId = req.params.shoppingCartItemId;
 
-  // if (productId.length != 24 || shoppingCartId.length != 24) {
-  //   return res
-  //     .status(400)
-  //     .json({ message: "ShoppingCart or product id is invalid" });
-  // }
+  if (shoppingCartId.length != 24) {
+    return res.status(400).json({ message: "Cart id is invalid" });
+  }
 
   try {
     let shoppingCartToUpdate = await ShoppingCart.findById(shoppingCartId);
+    if (!shoppingCartToUpdate) {
+      return res.status(404).json({
+        message: "Cart not found",
+      });
+    }
 
     const productInCart = shoppingCartToUpdate.shoppingCartItems.find(
       ({ product }) => product == productId
     );
+    if (!productInCart) {
+      return res.status(404).json({
+        message: "Product in cart not found",
+      });
+    }
+
+    const productToUpdate = await Product.findById(productId);
+    if (!productToUpdate) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+
+    shoppingCartToUpdate.totalPrice =
+      shoppingCartToUpdate.totalPrice -
+      productToUpdate.unitPrice * productInCart.quantity;
 
     let index = shoppingCartToUpdate.shoppingCartItems.indexOf(productInCart);
     shoppingCartToUpdate.shoppingCartItems.splice(index, 1);
