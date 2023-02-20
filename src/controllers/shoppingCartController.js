@@ -128,9 +128,9 @@ exports.deleteShoppingCartById = async (req, res) => {
   }
 };
 
-exports.deleteShoppingCartItemById = async (req, res) => {
+exports.deleteShoppingCartItemByProductId = async (req, res) => {
   const shoppingCartId = req.params.shoppingCartId;
-  const productId = req.params.shoppingCartItemId;
+  const productId = req.params.productId;
 
   if (shoppingCartId.length != 24) {
     return res.status(400).json({ message: "Cart id is invalid" });

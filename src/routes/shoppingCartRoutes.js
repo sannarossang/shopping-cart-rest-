@@ -7,7 +7,7 @@ const {
   createNewShoppingCart,
   updateShoppingCartById,
   deleteShoppingCartById,
-  deleteShoppingCartItemById,
+  deleteShoppingCartItemByProductId,
 } = require("../controllers/shoppingCartController");
 
 router.get("/", getAllShoppingCarts);
@@ -20,9 +20,6 @@ router.put("/:shoppingCartId", updateShoppingCartById);
 
 router.delete("/:shoppingCartId", deleteShoppingCartById);
 
-router.delete(
-  "/:shoppingCartId/:shoppingCartItemId",
-  deleteShoppingCartItemById
-);
+router.delete("/:shoppingCartId/:productId", deleteShoppingCartItemByProductId);
 
 module.exports = router;
