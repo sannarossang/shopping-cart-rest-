@@ -27,6 +27,6 @@ Body: {
 
 ## DELETE:
 - deleteShoppingCartById: http://localhost:4000/api/v1/shoppingCarts
-- deleteShoppingCartByCartItemId: http://localhost:4000/api/v1/shoppingCarts/:shoppingCartId/:shoppingCartItemId
+- deleteShoppingCartByCartItemId: http://localhost:4000/api/v1/shoppingCarts/:shoppingCartId/:productId
 
 
